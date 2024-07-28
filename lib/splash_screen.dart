@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
  
     return  Container(
       color:
-       Color(0xffFFFFFF)
+       Color(0xffDFECDB)
       
        ,
       child: Column(

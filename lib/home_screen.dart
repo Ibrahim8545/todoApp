@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/tabs/settings_tab.dart';
 import 'package:todoapp/tabs/tasks_tabs.dart';
+import 'package:todoapp/tabs/widget/add_task_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'home';
@@ -29,7 +30,19 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () 
+        {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+             builder:(context) => Padding(
+               padding:  EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom
+               ),
+               child:const  AddTaskBottomSheet(),
+             ),
+             );
+        },
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -64,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   List<Widget>tabs=[
-    TasksTab(),
-    SettingsTab()
+    const TasksTab(),
+    const SettingsTab()
   ];
 }

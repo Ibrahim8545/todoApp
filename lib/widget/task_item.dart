@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todoapp/app_color.dart';
+import 'package:todoapp/models/task_model.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key});
+  TaskItem({super.key,required this.taskModel});
+  TaskModel taskModel;
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +63,11 @@ class TaskItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'I am ibrahim',
+                      taskModel.title,
                       style: TextStyle(fontSize: 18, color: AppColor.primary),
                     ),
-                    const Text(
-                      'i dead inside and outside',
+                  Text(
+                      taskModel.subTitle,
                       style: TextStyle(fontSize: 14, color: AppColor.gray),
                     )
                   ],

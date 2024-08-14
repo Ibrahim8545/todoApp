@@ -24,4 +24,10 @@ class FirebaseFunctions {
 
     return docRef.set(task);
   }
+
+  static Stream<QuerySnapshot<TaskModel>> getTask()
+  {
+    var collection=getTaskCollection();
+    return collection.snapshots();
+  }
 }

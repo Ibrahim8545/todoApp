@@ -1,6 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todoapp/app_color.dart';
+import 'package:todoapp/firebase_function/firebase_function.dart';
 import 'package:todoapp/models/task_model.dart';
 
 class TaskItem extends StatelessWidget {
@@ -22,7 +24,10 @@ class TaskItem extends StatelessWidget {
           extentRatio: .6,
           children: [
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) 
+              {
+                FirebaseFunctions.deleteTasks(taskModel.id);
+              },
               label: "Delete",
               backgroundColor: Colors.red,
               icon: Icons.delete,

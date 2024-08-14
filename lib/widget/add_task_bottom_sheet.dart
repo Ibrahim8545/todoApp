@@ -90,7 +90,7 @@ var subTitleController=TextEditingController();
              TaskModel task=TaskModel(
               title: titleController.text,
                subTitle: subTitleController.text,
-                date:selectedDate.microsecondsSinceEpoch 
+                date:DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch
                 );
                 FirebaseFunctions.addTask(task).then((value)
                 {

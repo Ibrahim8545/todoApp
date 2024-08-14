@@ -4,18 +4,30 @@ import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
 import 'package:todoapp/widget/task_item.dart';
 
-class TasksTab extends StatelessWidget {
+class TasksTab extends StatefulWidget {
  TasksTab({super.key});
-DateTime dateTime = DateTime.now();
+
+  @override
+  State<TasksTab> createState() => _TasksTabState();
+}
+
+class _TasksTabState extends State<TasksTab> {
+DateTime date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CalendarTimeline(
-          initialDate: dateTime,
+          initialDate: date,
           firstDate: DateTime.now().subtract(Duration(days: 700)),
           lastDate: DateTime.now().add(Duration(days: 700)),
-          onDateSelected: (date) => print(date),
+             onDateSelected:(dateTime) {
+            date=dateTime;
+            setState(() {
+              
+            });
+          },
           leftMargin: 20,
           monthColor: AppColor.gray,
           dayColor: AppColor.primary,
@@ -24,12 +36,13 @@ DateTime dateTime = DateTime.now();
           dotColor: Colors.white,
           //selectableDayPredicate: (date) => date.day != 23,
           locale: 'en',
+       
         ),
         const SizedBox(
           height: 24,
         ),
         StreamBuilder(
-          stream: FirebaseFunctions.getTask(),
+          stream: FirebaseFunctions.getTask(date),
          
           builder: (context, snapshot) {
             if(snapshot.connectionState==ConnectionState.waiting)

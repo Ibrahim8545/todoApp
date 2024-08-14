@@ -15,19 +15,19 @@ class TaskModel {
   TaskModel.fromJson(Map<String, dynamic> json) :this
   (
     title: json['title'],
-        subTitle: json['subTitle'],
-        date: json['date'],
-        isDone: json['isDone'],
-        id: json['id']
+    subTitle: json['subTitle'],
+    date: json['date'],
+    isDone: json['isDone'],
+    id: json['id']
   );
 
   Map<String, dynamic> toJson() {
     return {
-      'title': 'title',
-      'subTitle': 'subTitle',
-      'date': 'date',
-      'isDone': 'isDone',
-      'id': 'id'
+      'title':title,
+      'subTitle':subTitle,
+      'date':date,
+      'isDone':isDone,
+      'id':id
     };
   }
 }

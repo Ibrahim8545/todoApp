@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/app_color.dart';
+import 'package:todoapp/firebase_function/firebase_function.dart';
+import 'package:todoapp/models/task_model.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -10,7 +12,11 @@ class AddTaskBottomSheet extends StatefulWidget {
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
  DateTime selectedDate=DateTime.now();
+ var titleController=TextEditingController();
+var subTitleController=TextEditingController();
 
+ 
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +35,9 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             height: 24,
           ),
           TextFormField(
+            controller: titleController,
             decoration: InputDecoration(
-                hintMaxLines: 5,
+                
                 label:const  Text('Title'),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
@@ -41,9 +48,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             height: 18,
           ),
           TextFormField(
+            controller: subTitleController,
             decoration: InputDecoration(
+              
                 hintMaxLines: 5,
-                label:const  Text('Description'),
+                label:  Text('Description'),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
                 enabledBorder: OutlineInputBorder(
@@ -78,11 +87,21 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           ElevatedButton(
             onPressed: () 
             {
-             
+             TaskModel task=TaskModel(
+              title: titleController.text,
+               subTitle: subTitleController.text,
+                date:selectedDate.microsecondsSinceEpoch 
+                );
+                FirebaseFunctions.addTask(task).then((value)
+                {
+                  Navigator.pop(context);
+                },);
+                  
+                
 
             },
             child: Text(
-              'Add Tesk',
+              'Add Task',
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w400,

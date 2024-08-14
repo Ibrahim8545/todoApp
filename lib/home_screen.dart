@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/tabs/settings_tab.dart';
 import 'package:todoapp/tabs/tasks_tabs.dart';
-import 'package:todoapp/tabs/widget/add_task_bottom_sheet.dart';
+import 'package:todoapp/widget/add_task_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'home';

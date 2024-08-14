@@ -1,7 +1,7 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/app_color.dart';
-import 'package:todoapp/tabs/widget/task_item.dart';
+import 'package:todoapp/widget/task_item.dart';
 
 class TasksTab extends StatelessWidget {
   const TasksTab({super.key});

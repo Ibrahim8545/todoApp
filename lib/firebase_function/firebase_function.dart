@@ -37,4 +37,9 @@ class FirebaseFunctions {
   {
     return getTaskCollection().doc(id).delete();
   }
+
+   static Future<void> updateStatus(TaskModel task)
+  {
+    return getTaskCollection().doc(task.id).update(task.toJson());
+  }
 }

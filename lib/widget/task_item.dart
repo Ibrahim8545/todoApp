@@ -39,7 +39,10 @@ class TaskItem extends StatelessWidget {
               ),
             ),
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) 
+              {
+                
+              },
               label: "Edit",
               backgroundColor: Colors.blue,
               icon: Icons.edit,
@@ -55,7 +58,7 @@ class TaskItem extends StatelessWidget {
                 height: 80,
                 width: 3,
                 decoration: BoxDecoration(
-                  color: AppColor.primary,
+                  color:taskModel.isDone?Colors.green: AppColor.primary,
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
@@ -69,11 +72,15 @@ class TaskItem extends StatelessWidget {
                   children: [
                     Text(
                       taskModel.title,
-                      style: TextStyle(fontSize: 18, color: AppColor.primary),
+                      style: TextStyle(
+                        fontSize: 18,
+                         color:taskModel.isDone?Colors.green: AppColor.primary),
                     ),
                   Text(
                       taskModel.subTitle,
-                      style: TextStyle(fontSize: 14, color: AppColor.gray),
+                      style: TextStyle(
+                        fontSize: 14, 
+                        color:taskModel.isDone?Colors.green: AppColor.gray),
                     )
                   ],
                 ),
@@ -81,8 +88,17 @@ class TaskItem extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
+              taskModel.isDone?Text('Done!',
+              style: TextStyle(
+                color: Colors.green,
+                fontSize: 30 
+              ),):
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  taskModel.isDone=true;
+                FirebaseFunctions.updateStatus(taskModel);
+
+                },
                 child: Icon(
                   Icons.done,
                   color: Colors.white,

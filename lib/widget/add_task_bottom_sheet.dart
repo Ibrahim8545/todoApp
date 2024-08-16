@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
@@ -90,6 +91,7 @@ var subTitleController=TextEditingController();
             {
              TaskModel task=TaskModel(
               title: titleController.text,
+               userId: FirebaseAuth.instance.currentUser!.uid,
                subTitle: subTitleController.text,
                 date:DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch
                 );

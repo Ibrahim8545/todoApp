@@ -1,140 +1,117 @@
 
-
 import 'package:flutter/material.dart';
-import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
-
-import 'package:todoapp/signin_and_sigup/custom_text_field.dart';
 import 'package:todoapp/signin_and_sigup/login.dart';
 
+class SignupScreen extends StatelessWidget {
+  static const String routeName = "signUp";
 
-class RegsiterPage extends StatelessWidget {
-  
-  static  const String routeName = 'RegsiterPage';
- var emailController=TextEditingController();
-var passwordController=TextEditingController();
+  SignupScreen({Key? key}) : super(key: key);
 
+  var emailController = TextEditingController();
+  var userNameController = TextEditingController();
+  var passwordController = TextEditingController();
+  var ageController = TextEditingController();
+  var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
-            backgroundColor: AppColor.primary,
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Form(
-               
-                child: ListView(
-                  children: [
-                    const SizedBox(
-                      height: 75,
-                    ),
-                    Image.asset(
-                      'assets/images/images.jpg',
-                      height: 100,
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Scholar Chat',
-                          style: TextStyle(
-                              fontSize: 32,
-                              color: Colors.white,
-                              fontFamily: 'pacifico'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 75,
-                    ),
-                    const Row(
-                      children: [
-                        Text(
-                          'REGSITER',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    CustomTextField(
-                       controller: emailController,
-                      text: 'Email must be not empty',
-                    
-                      hint: 'Email',
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextField(
-                      controller: passwordController,
-                      text: 'Pasword must be not empty',
-                      hint: 'Password',
-                    ),
-                    const SizedBox(height: 20),
-                   ElevatedButton(
-                    onPressed: ()
-                    {
-                      FirebaseFunctions.creatAccount(
-                        emailController.text, 
-                        passwordController.text,
-                        onSucess: (){
-                          Navigator.pushReplacementNamed(context, LoginPage.routeName);
-                          SnackBar(content: build(context));
-                        },
-                        onError: (message)
-                        {
-                          showDialog(context: context,
-                           builder:(context) => AlertDialog(
-                            content:const  Text('message'),
-                            title: Text('Error'),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: (){},
-                                 child: Text('okay'))
-                            ],
-
-
-                           )
-                           );
-                        }
-                        );
-                      print('email add');
-                    },
-                     child: Text('Register')),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'already have an account ?',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Color(0xffC7EDE6),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: const Text('SignUp Screen'),
+      ),
+      bottomNavigationBar: InkWell(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: const Padding(
+          padding: EdgeInsets.all(18.0),
+          child: Text.rich(
+              textAlign: TextAlign.center,
+              TextSpan(children: [
+                TextSpan(text: "I have an Account? "),
+                TextSpan(
+                    text: "Login",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue)),
+              ])),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                labelText: 'Email',
               ),
             ),
-          );
-        
-      }
-    
+            const SizedBox(height: 16),
+            TextField(
+              controller: userNameController,
+              decoration: const InputDecoration(
+                labelText: 'Username',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: phoneController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'phone',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: ageController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'age',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                FirebaseFunctions.createAccount(
+                    emailController.text, 
+                    passwordController.text,
+                    age: int.parse(ageController.text),
+                    phone: phoneController.text,
+                    userName: userNameController.text,
+                     onSucess: () {
+                  Navigator.pushNamed(context,LoginPage.routeName);
+                }, onError: (error) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Error"),
+                      content: Text(error),
+                      actions: [
+                        ElevatedButton(onPressed: () {}, child: Text("Cacnel")),
+                       
+                      ],
+                    ),
+                  );
+                });
+              },
+              child: const Text('SignUp'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
-
+}

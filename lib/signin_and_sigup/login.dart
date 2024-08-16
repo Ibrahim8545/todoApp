@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
+import 'package:todoapp/home_screen.dart';
 import 'package:todoapp/signin_and_sigup/custom_button.dart';
 import 'package:todoapp/signin_and_sigup/custom_text_field.dart';
 import 'package:todoapp/signin_and_sigup/regsiter.dart';
@@ -53,26 +54,53 @@ var emailController = TextEditingController();
                 ],
               ),
               const SizedBox(height: 20),
-              CustomTextField(
-                controller: emailController,
-                hint: 'Email',
-                text: 'Email must be not empty',
+             TextField(
+              controller: emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email',
               ),
+            ),
               const SizedBox(height: 10),
-              CustomTextField(
-                controller: passwordController,
-                hint: 'Password',
-                text: 'Pasword must be not empty',
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Password',
               ),
+            ),
               const SizedBox(height: 20),
-              CustomButton(
-                onTap: () 
-                 {
-                  FirebaseFunctions.login(emailController.text, passwordController.text);
-                  // Navigator.pushNamed(context,HomeScreen.routeName);
-                 },
-                text: 'LOGIN',
-              ),
+              ElevatedButton(
+                onPressed:(){
+FirebaseFunctions.login(
+                   emailAddress:  emailController.text, 
+                    password:  passwordController.text,
+                    onSucess:   ()
+                    {
+                        Navigator.pushNamed(
+                      context, HomeScreen.routeName, 
+                      );
+                    },
+                    
+                   onError:   (error)
+                    {
+                       {
+                          showDialog(context: context,
+                           builder:(context) => AlertDialog(
+                            content:const  Text('Error'),
+                            title: Text(error),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                                 child: Text('okay'))
+                            ],
+
+
+                           )
+                           );
+                        }
+                    });
+                } , child:Text('Login') ),
               const SizedBox(
                 height: 10,
               ),
@@ -89,7 +117,7 @@ var emailController = TextEditingController();
                   GestureDetector(
                     onTap: () 
                     {
-                      Navigator.pushNamed(context, RegsiterPage.routeName);
+                      Navigator.pushNamed(context, SignupScreen.routeName);
                     },
                     child: const Text(
                       'Resister',

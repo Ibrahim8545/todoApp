@@ -1,0 +1,38 @@
+class UserModel {
+  String id;
+  String userName;
+  String email;
+  String phone;
+  int age;
+
+  UserModel(
+      {this.id = '',
+      required this.userName,
+      required this.email,
+      required this.age,
+      required this.phone}
+      );
+
+
+  UserModel.fromJson(Map<String,dynamic>json):this
+  (
+    id: json['id'],
+    userName: json['userName'],
+    email: json['email'],
+    phone: json['phone'],
+    age: json['age'],
+  );
+
+  Map<String,dynamic>toJson()
+  {
+    return {
+      'id':id,
+      ' userName': userName,
+      'email':email,
+      ' phone': phone,
+      'age':age
+
+    };
+  }
+  
+}

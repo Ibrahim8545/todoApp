@@ -49,10 +49,11 @@ var subTitleController=TextEditingController();
           ),
           TextFormField(
             controller: subTitleController,
+
+               maxLines: 2,
             decoration: InputDecoration(
               
-                hintMaxLines: 5,
-                label:  Text('Description'),
+                label:const   Text('Description',),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
                 enabledBorder: OutlineInputBorder(
@@ -78,7 +79,7 @@ var subTitleController=TextEditingController();
              child:  Text(
               selectedDate.toString().substring(0,10),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                        ),
            ),
           const SizedBox(
@@ -92,10 +93,8 @@ var subTitleController=TextEditingController();
                subTitle: subTitleController.text,
                 date:DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch
                 );
-                FirebaseFunctions.addTask(task).then((value)
-                {
-                  Navigator.pop(context);
-                },);
+                FirebaseFunctions.addTask(task);
+                 Navigator.pop(context);
                   
                 
 

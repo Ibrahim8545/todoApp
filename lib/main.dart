@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/firebase_options.dart';
 import 'package:todoapp/home_screen.dart';
+import 'package:todoapp/signin_and_sigup/login.dart';
+import 'package:todoapp/signin_and_sigup/regsiter.dart';
 import 'package:todoapp/splash_screen.dart';
 
 void main()async {
@@ -9,6 +12,7 @@ void main()async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
+//await FirebaseFirestore.instance.disableNetwork();
   runApp(const MyApp());
 }
 
@@ -22,7 +26,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home:const  SplashScreen(),
       routes:{
-        HomeScreen.routeName:(context) =>  HomeScreen()
+        HomeScreen.routeName:(context) =>  HomeScreen(),
+        LoginPage.routeName:(context) => LoginPage(),
+        RegsiterPage.routeName:(context) => RegsiterPage()
 
       },
     );

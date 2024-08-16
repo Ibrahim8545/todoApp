@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 
 import 'package:todoapp/home_screen.dart';
+import 'package:todoapp/signin_and_sigup/login.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName='splash';
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 2),
       (){
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        Navigator.pushReplacementNamed(context, LoginPage.routeName);
 
       }
 

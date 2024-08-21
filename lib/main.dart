@@ -6,6 +6,7 @@ import 'package:todoapp/home_screen.dart';
 import 'package:todoapp/signin_and_sigup/login.dart';
 import 'package:todoapp/signin_and_sigup/regsiter.dart';
 import 'package:todoapp/splash_screen.dart';
+import 'package:todoapp/widget/edit_task.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       routes:{
         HomeScreen.routeName:(context) =>  HomeScreen(),
         LoginPage.routeName:(context) => LoginPage(),
-        SignupScreen.routeName:(context) => SignupScreen()
+        SignupScreen.routeName:(context) => SignupScreen(),
+        EditTask.routeName :(context) => EditTask(),
 
       },
     );

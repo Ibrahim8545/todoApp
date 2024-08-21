@@ -72,10 +72,10 @@ class FirebaseFunctions {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password);
-          if(credential.user?.emailVerified==true)
-          {
+         // if(credential.user?.emailVerified==true)
+          
             onSucess();
-          }
+          
     } on FirebaseAuthException catch (e) {
       onError(e.message);
     }

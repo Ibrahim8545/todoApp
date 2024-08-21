@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
 import 'package:todoapp/models/task_model.dart';
+import 'package:todoapp/widget/edit_task.dart';
 
 class TaskItem extends StatelessWidget {
   TaskItem({super.key,required this.taskModel});
@@ -41,7 +42,7 @@ class TaskItem extends StatelessWidget {
             SlidableAction(
               onPressed: (context) 
               {
-                
+                Navigator.pushNamed(context, EditTask.routeName, arguments: taskModel);
               },
               label: "Edit",
               backgroundColor: Colors.blue,
@@ -88,7 +89,7 @@ class TaskItem extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              taskModel.isDone?Text('Done!',
+              taskModel.isDone?const Text('Done!',
               style: TextStyle(
                 color: Colors.green,
                 fontSize: 30 

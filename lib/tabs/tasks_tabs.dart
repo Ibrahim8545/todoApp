@@ -63,10 +63,13 @@ DateTime date = DateTime.now();
           var tasks= snapshot.data?.docs.map((e) => e.data()).toList();
           if(tasks?.isEmpty ?? true)
           {
-            return const  Center(
-              child: Text(
-                'No tasks today'),
-                );
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Image.asset('assets/images/meme-patrick-star.gif',
+              height: 240,
+              width: 300,
+              ),
+            );
           }  
           return Expanded(
           child: ListView.separated(

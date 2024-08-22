@@ -81,9 +81,10 @@ var formKey = GlobalKey<FormState>();
                         password: passwordController.text,
                         onSucess: () {
                           pro.initUser();
-                          Navigator.pushNamed(
+                          Navigator.pushNamedAndRemoveUntil(
                             context,
                             HomeScreen.routeName,
+                            (route) => false,
                           );
                         },
                         onError: (error) {

@@ -6,21 +6,23 @@ import 'package:todoapp/home_screen.dart';
 import 'package:todoapp/providers/my_provider_auth.dart';
 import 'package:todoapp/signin_and_sigup/custom_button.dart';
 import 'package:todoapp/signin_and_sigup/custom_text_field.dart';
+
 import 'package:todoapp/signin_and_sigup/regsiter.dart';
 
 class LoginPage extends StatelessWidget {
-  static  const String  routeName = 'LoginPage';
-var emailController = TextEditingController();
+  static const String routeName = 'LoginPage';
+  var emailController = TextEditingController();
   var passwordController = TextEditingController();
-
+var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var pro=Provider.of<MyProvider>(context);
+    var pro = Provider.of<MyProvider>(context);
     return Scaffold(
       backgroundColor: AppColor.primary,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Form(
+          key: formKey,
           child: ListView(
             children: [
               const SizedBox(
@@ -34,10 +36,10 @@ var emailController = TextEditingController();
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'ToDo',
+                    'ToDo App',
                     style: TextStyle(
                         fontSize: 32,
-                        color: Colors.white,
+                        color:  Colors.white,
                         fontFamily: 'pacifico'),
                   ),
                 ],
@@ -45,68 +47,65 @@ var emailController = TextEditingController();
               const SizedBox(
                 height: 75,
               ),
-               Row(
+             const  Row(
                 children: [
-                  const Text(
+                   Text(
                     'LOGIN',
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.white,
                     ),
                   ),
-
-                
                 ],
               ),
               const SizedBox(height: 20),
-             TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
+              CustomTextField(
+                controller: emailController,
+                hint: 'Email',
+                text: 'Email must be not empty',
               ),
-            ),
               const SizedBox(height: 10),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
+              CustomTextField(
+                controller: passwordController,
+                hint: 'Password',
+                text: 'Password must be not empty',
+                 obscureText: true,
               ),
-            ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed:(){
-FirebaseFunctions.login(
-                   emailAddress:  emailController.text, 
-                    password:  passwordController.text,
-                    onSucess:   ()
+              CustomButton(
+                onTap:  () {
+                    if(formKey.currentState!.validate())
                     {
-                        pro.initUser();
-                        Navigator.pushNamed(
-                      context, HomeScreen.routeName, 
-                      );
-                    },
-                    
-                   onError:   (error)
-                    {
-                       {
-                          showDialog(context: context,
-                           builder:(context) => AlertDialog(
-                            content:const  Text('Error'),
-                            title: Text(error),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: (){
-                                  Navigator.pop(context);
-                                },
-                                 child: Text('okay'))
-                            ],
-
-
-                           )
-                           );
-                        }
-                    });
-                } , child:Text('Login') ),
+                      FirebaseFunctions.login(
+                        emailAddress: emailController.text,
+                        password: passwordController.text,
+                        onSucess: () {
+                          pro.initUser();
+                          Navigator.pushNamed(
+                            context,
+                            HomeScreen.routeName,
+                          );
+                        },
+                        onError: (error) {
+                          {
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      content: const Text('Error'),
+                                      title: Text(error),
+                                      actions: [
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('okay'))
+                                      ],
+                                    ));
+                          }
+                        });
+                    }
+                  },
+                 text: 'Login'),
               const SizedBox(
                 height: 10,
               ),
@@ -121,15 +120,15 @@ FirebaseFunctions.login(
                     width: 10,
                   ),
                   GestureDetector(
-                    onTap: () 
-                    {
+                    onTap: () {
                       Navigator.pushNamed(context, SignupScreen.routeName);
                     },
                     child: const Text(
                       'Resister',
-                      style: TextStyle(
-                        color: Color(0xffC7EDE6),
-                      ),
+                     style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color:Colors.white),
                     ),
                   ),
                 ],

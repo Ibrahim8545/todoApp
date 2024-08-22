@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-   CustomTextField({super.key,this.hint,this.text,this.obscureText=false,this.controller});
+
+   CustomTextField({super.key,this.hint,this.text,this.obscureText=false,this.controller,this.keyboardType});
 
 String? hint;
 String? text;
 bool? obscureText;
 TextEditingController? controller;
+TextInputType? keyboardType;
 
 
 
@@ -15,6 +17,7 @@ TextEditingController? controller;
     return  TextFormField(
       obscureText: obscureText!,
       controller: controller,
+      keyboardType:keyboardType ,
       validator: (value) 
       {
         if(value!.isEmpty)
@@ -28,22 +31,30 @@ TextEditingController? controller;
             label: Text(
               '$hint',
               style:const  TextStyle(
-                color: Colors.white
+                color: Color.fromARGB(255, 226, 215, 215)
               ),
               ),
-              // border: const OutlineInputBorder(
-              //   Colors.amber,
-              //   borderSide: BorderSide(
-              //     color: Colors.white
-              //     ),
-              // ),
-
-            
-              enabledBorder: const OutlineInputBorder(
+              border: const OutlineInputBorder(
+                
                 borderSide: BorderSide(
                   color: Colors.white
                   ),
               ),
+
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.white
+                  ),
+
+              ),
+              
+             focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.white
+                  ),
+
+              ),
+
             ),
           );
   }

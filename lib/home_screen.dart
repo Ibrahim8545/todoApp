@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: AppColor.primary,
         title:  Text(
-          'Todo App ${pro.userModel?.userName}',
+          'Hi ${pro.userModel?.userName}',
           style: TextStyle(
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
@@ -39,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   {
                   
                       FirebaseAuth.instance.signOut();
-                Navigator.pushNamed(context, LoginPage.routeName);
+                 Navigator.pushNamedAndRemoveUntil(
+                      context, LoginPage.routeName, (route) => false,
+                      );
                   }, 
                   icon: Icon(Icons.logout))
         ],

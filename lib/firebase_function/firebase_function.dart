@@ -50,13 +50,16 @@ class FirebaseFunctions {
 
     return docRef.set(user);
   }
-static Future<UserModel?> readUser(String id) async{
-  DocumentSnapshot<UserModel> doc=await getUserCollection().doc(id).get();
 
-  return doc.data();
+  static Future<UserModel?> readUser() async {
+    DocumentSnapshot<UserModel> docRef = await getUserCollection()
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
 
+    return docRef.data();
+  
+  }
 
-}
   static Stream<QuerySnapshot<TaskModel>> getTask(DateTime date) {
     var collection = getTaskCollection();
     return collection.where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)

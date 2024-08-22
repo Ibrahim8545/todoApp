@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
 import 'package:todoapp/home_screen.dart';
+import 'package:todoapp/providers/my_provider_auth.dart';
 import 'package:todoapp/signin_and_sigup/custom_button.dart';
 import 'package:todoapp/signin_and_sigup/custom_text_field.dart';
 import 'package:todoapp/signin_and_sigup/regsiter.dart';
 
 class LoginPage extends StatelessWidget {
-  static  const  routeName = 'LoginPage';
+  static  const String  routeName = 'LoginPage';
 var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var pro=Provider.of<MyProvider>(context);
     return Scaffold(
       backgroundColor: AppColor.primary,
       body: Padding(
@@ -42,15 +45,17 @@ var emailController = TextEditingController();
               const SizedBox(
                 height: 75,
               ),
-              const Row(
+               Row(
                 children: [
-                  Text(
+                  const Text(
                     'LOGIN',
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.white,
                     ),
                   ),
+
+                
                 ],
               ),
               const SizedBox(height: 20),
@@ -75,6 +80,7 @@ FirebaseFunctions.login(
                     password:  passwordController.text,
                     onSucess:   ()
                     {
+                        pro.initUser();
                         Navigator.pushNamed(
                       context, HomeScreen.routeName, 
                       );

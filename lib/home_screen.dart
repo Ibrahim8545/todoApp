@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
+import 'package:todoapp/providers/my_provider_auth.dart';
+import 'package:todoapp/signin_and_sigup/login.dart';
 import 'package:todoapp/tabs/settings_tab.dart';
 import 'package:todoapp/tabs/tasks_tabs.dart';
 import 'package:todoapp/widget/add_task_bottom_sheet.dart';
@@ -17,16 +21,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    var pro=Provider.of<MyProvider>(context);
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColor.secondary,
       appBar: AppBar(
         backgroundColor: AppColor.primary,
-        title: const Text(
-          'Todo App',
+        title:  Text(
+          'Todo App ${pro.userModel?.userName}',
           style: TextStyle(
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
+        actions: [
+            IconButton(
+              onPressed: ()
+                  {
+                  
+                      FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, LoginPage.routeName);
+                  }, 
+                  icon: Icon(Icons.logout))
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

@@ -9,6 +9,7 @@ import 'package:todoapp/providers/theme_provider.dart';
 import 'package:todoapp/signin_and_sigup/login.dart';
 import 'package:todoapp/signin_and_sigup/regsiter.dart';
 import 'package:todoapp/splash_screen.dart';
+import 'package:todoapp/themes.dart';
 import 'package:todoapp/widget/edit_task.dart';
 
 void main() async {
@@ -18,16 +19,19 @@ void main() async {
   );
 //await FirebaseFirestore.instance.disableNetwork();
   runApp(
-    MultiProvider(providers:[
-       ChangeNotifierProvider(
-      create: (context) => MyProvider(),
-       ),
-       ChangeNotifierProvider(
-        create:(context)=> ThemeProvider()
-        )
-    ],
-        child: const MyApp(),
-    )
+    MultiProvider(
+      providers:[
+         ChangeNotifierProvider(
+          create:(context)=> ThemeProvider()
+          ),
+         ChangeNotifierProvider(
+        create: (context) => MyProvider(),
+         ),
+        
+      ],
+          child: const MyApp(),
+      ),
+    
   
   
     );
@@ -39,14 +43,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var pro=Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      themeMode: pro.appTheme ,
+      theme: MyThemeData.lightTheme,
+      darkTheme: MyThemeData.darkTheme,
       home: const SplashScreen(),
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         LoginPage.routeName: (context) => LoginPage(),
         SignupScreen.routeName: (context) => SignupScreen(),
-        EditTask.routeName: (context) => EditTask(),
+        EditTask.routeName: (context) =>const  EditTask(),
       },
     );
   }

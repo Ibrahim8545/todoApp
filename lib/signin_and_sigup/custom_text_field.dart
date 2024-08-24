@@ -30,9 +30,9 @@ TextInputType? keyboardType;
             
             label: Text(
               '$hint',
-              style:const  TextStyle(
-                color: Color.fromARGB(255, 226, 215, 215)
-              ),
+              style: Theme.of(context).
+                  textTheme.
+                  bodyMedium
               ),
               border: const OutlineInputBorder(
                 

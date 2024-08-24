@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/providers/my_provider_auth.dart';
+import 'package:todoapp/providers/theme_provider.dart';
 import 'package:todoapp/signin_and_sigup/login.dart';
 import 'package:todoapp/tabs/settings_tab.dart';
 import 'package:todoapp/tabs/tasks_tabs.dart';
@@ -22,15 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var pro = Provider.of<MyProvider>(context);
+    var proTheme=Provider.of<ThemeProvider>(context);
     return Scaffold(
         extendBody: true,
-        backgroundColor: AppColor.secondary,
+        backgroundColor: proTheme.appTheme==ThemeMode.light?
+          AppColor.secondary
+          :AppColor.dark,
         appBar: AppBar(
           backgroundColor: AppColor.primary,
           title: Text(
             'Hi ${pro.userModel?.userName}',
-            style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+            style:const  TextStyle(
+                fontSize: 30,
+                 fontWeight: FontWeight.bold, 
+                 color: Colors.white),
           ),
           actions: [
             IconButton(
@@ -71,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
           notchMargin: 8,
           shape: CircularNotchedRectangle(),
           padding: EdgeInsets.zero,
-          color: Colors.white,
+          color: proTheme.appTheme==ThemeMode.light?
+          Colors.white:AppColor.dark,
           child: BottomNavigationBar(
               elevation: 0,
               backgroundColor: Colors.transparent,

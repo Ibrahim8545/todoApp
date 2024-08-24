@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
 import 'package:todoapp/models/task_model.dart';
+import 'package:todoapp/providers/theme_provider.dart';
 import 'package:todoapp/widget/edit_task.dart';
 
 class TaskItem extends StatelessWidget {
@@ -12,12 +14,13 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var pro=Provider.of<ThemeProvider>(context);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12),
       height: 115,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
-        color: Colors.white,
+        color: pro.appTheme==ThemeMode.light?Colors.white:Colors.black,
       ),
       child: Slidable(
         startActionPane: ActionPane(

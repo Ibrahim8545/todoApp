@@ -1,97 +1,116 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/modals_bottom.dart/language_modal_bottom.dart';
 import 'package:todoapp/modals_bottom.dart/thwmw_modal_bottom.dart';
+import 'package:todoapp/providers/theme_provider.dart';
+import 'package:todoapp/signin_and_sigup/custom_button.dart';
+import 'package:todoapp/signin_and_sigup/login.dart';
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.primary,
-        title: const Text(
-          'Settings',
-          style: TextStyle
-          (color: Colors.white,
-          fontSize: 25,
-          fontWeight: FontWeight.bold
-          ),
-          ),
-      ),
       body: Container(
         padding: EdgeInsets.all(20),
-        color: AppColor.secondary,
-        child: Column(
-          
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children:[
-            const Text(
-            'Language',
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Colors.black
-            ),
-            ),
-            const SizedBox(height: 10,),
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                 builder: (context){
-                  return LanguageModalBottom();
-                 }
-                 );
-              },
-              child: Container(
-                padding:const  EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: AppColor.primary)),
-                child: Text(  
-               'English',
-        
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-            ),
-            SizedBox(height: 25,),
-            const Text(
+        color: pro.appTheme == ThemeMode.light
+            ? AppColor.secondary
+            : AppColor.dark,
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Text(
             'Theme',
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: Colors.black
+              color:
+                  pro.appTheme == ThemeMode.light ? Colors.black : Colors.white,
             ),
-            ),
-            const SizedBox(height: 20,),
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  backgroundColor: pro.appTheme == ThemeMode.light
+                      ? Colors.white
+                      : AppColor.dark,
                   context: context,
-                 builder: (context){
-                  return ThemeModalBottom();
-                 }
-                 );
-              },
-              child: Container(
-                padding:const  EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: AppColor.primary)),
-                child: Text(  
-               'Light',
-               
-                  style: Theme.of(context).textTheme.bodySmall,
+                  builder: (context) {
+                    return ThemeModalBottom();
+                  });
+            },
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                  color: pro.appTheme == ThemeMode.light
+                      ? Colors.white
+                      : AppColor.dark,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppColor.primary)),
+              child: Text(
+                pro.appTheme == ThemeMode.light ? 'light' : 'dark',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: pro.appTheme == ThemeMode.light
+                      ? Colors.black
+                      : AppColor.primary,
                 ),
               ),
             ),
-          ]
-        ),
-      ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          CustomButton(
+            
+              onTap: () {
+                showDialog(
 
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          content: const Text('Log Out of your account?'),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Cancel',
+                                style: TextStyle(color: Colors.black),
+                                )),
+                            ElevatedButton(
+                                onPressed: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    LoginPage.routeName,
+                                    (route) => false,
+                                  );
+                                },
+                                child: Text(
+                                  'Log Out',
+                                  style: TextStyle(color: Colors.red),
+                                  )
+                                ),
+                          ],
+                        ));
+              },
+              text: (
+                'Log out'
+  
+                ),
+              
+              ),
+        ]),
+      ),
     );
   }
 }

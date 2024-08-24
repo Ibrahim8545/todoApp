@@ -5,7 +5,7 @@ class ThemeProvider extends ChangeNotifier
 {
   ThemeMode appTheme = ThemeMode.light;
 
-  MyProvider() {
+  ThemeProvider() {
     loadThemeFromPrefs();
   }
 

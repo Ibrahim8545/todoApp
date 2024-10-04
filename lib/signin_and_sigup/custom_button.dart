@@ -16,16 +16,18 @@ String text;
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: pro.appTheme==ThemeMode.light?
-                Colors.yellow:
-                AppColor.gray
+                Colors.white:
+                Colors.grey
               ),
               width: double.infinity,
               height: 60,
               child:Center(
                 child: Text(
                   text,
-                  style: const TextStyle(
-                    color: Colors.blue,
+                  style:  TextStyle(
+                    color:  pro.appTheme!=ThemeMode.light?
+                Colors.white:
+                AppColor.dark,
                     fontSize: 18,
                     fontWeight: FontWeight.bold
                   )

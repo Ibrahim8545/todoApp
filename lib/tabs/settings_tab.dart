@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
-import 'package:todoapp/modals_bottom.dart/language_modal_bottom.dart';
 import 'package:todoapp/modals_bottom.dart/thwmw_modal_bottom.dart';
 import 'package:todoapp/providers/theme_provider.dart';
 import 'package:todoapp/signin_and_sigup/custom_button.dart';
@@ -42,7 +41,7 @@ class SettingsTab extends StatelessWidget {
                       : AppColor.dark,
                   context: context,
                   builder: (context) {
-                    return ThemeModalBottom();
+                    return const  ThemeModalBottom();
                   });
             },
             child: Container(
@@ -83,7 +82,7 @@ class SettingsTab extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text('Cancel',
+                                child:const  Text('Cancel',
                                 style: TextStyle(color: Colors.black),
                                 )),
                             ElevatedButton(
@@ -95,7 +94,7 @@ class SettingsTab extends StatelessWidget {
                                     (route) => false,
                                   );
                                 },
-                                child: Text(
+                                child:const  Text(
                                   'Log Out',
                                   style: TextStyle(color: Colors.red),
                                   )

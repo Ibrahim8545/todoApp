@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoapp/app_color.dart';
 
 import 'package:todoapp/home_screen.dart';
 import 'package:todoapp/providers/my_provider_auth.dart';
+import 'package:todoapp/providers/theme_provider.dart';
 import 'package:todoapp/signin_and_sigup/login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -35,8 +37,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var proTheme = Provider.of<ThemeProvider>(context);
     return Container(
-      color: const Color(0xffDFECDB),
+      color: proTheme.appTheme == ThemeMode.light?
+      AppColor.secondary:
+      AppColor.dark,
       child: Column(
         children: [
           const Spacer(),

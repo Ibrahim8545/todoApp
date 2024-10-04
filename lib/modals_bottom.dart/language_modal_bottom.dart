@@ -52,7 +52,7 @@ class LanguageModalBottom extends StatelessWidget {
         
                 //pro.changeLanguage(context,'ar');
             },
-            child: Row(
+            child:const  Row(
               children: [
                 Text(
                   'arabic',

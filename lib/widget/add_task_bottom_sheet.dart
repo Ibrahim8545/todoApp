@@ -121,7 +121,7 @@ var subTitleController=TextEditingController();
       context: context, 
       builder:(context, child) =>  Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
+            colorScheme:const  ColorScheme.light(
               primary: AppColor.primary, 
               onPrimary: Colors.white, 
               onSurface: Colors.black, 

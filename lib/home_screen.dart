@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/providers/my_provider_auth.dart';
 import 'package:todoapp/providers/theme_provider.dart';
-import 'package:todoapp/signin_and_sigup/login.dart';
+
 import 'package:todoapp/tabs/settings_tab.dart';
 import 'package:todoapp/tabs/tasks_tabs.dart';
 import 'package:todoapp/widget/add_task_bottom_sheet.dart';
@@ -38,18 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                  fontWeight: FontWeight.bold, 
                  color: Colors.white),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    LoginPage.routeName,
-                    (route) => false,
-                  );
-                },
-                icon: Icon(Icons.logout))
-          ],
+          
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(

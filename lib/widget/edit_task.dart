@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/app_color.dart';
 import 'package:todoapp/firebase_function/firebase_function.dart';
 import 'package:todoapp/models/task_model.dart';
 import 'package:intl/intl.dart';
+import 'package:todoapp/providers/theme_provider.dart';
 
 class EditTask extends StatefulWidget {
   const EditTask({super.key});
@@ -18,8 +20,9 @@ class _EditTaskState extends State<EditTask> {
   @override
   Widget build(BuildContext context) {
     var model=ModalRoute.of(context)?.settings.arguments as TaskModel;
+    var proTheme = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: AppColor.secondary,
+      backgroundColor: proTheme.appTheme==ThemeMode.light?AppColor.secondary:AppColor.dark,
       appBar: AppBar(
         backgroundColor: AppColor.primary,
         title: const Text('Edit Task'),
@@ -27,6 +30,7 @@ class _EditTaskState extends State<EditTask> {
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Card(
+          color: proTheme.appTheme==ThemeMode.light?Colors.white:AppColor.gray.withOpacity(0.8),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
@@ -45,7 +49,10 @@ class _EditTaskState extends State<EditTask> {
                  model.title=value; 
                 },
                 decoration: InputDecoration(
-                  label: const Text('Title'),
+                  label: const Text(
+                    'Title',
+
+                    ),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(18),
@@ -119,7 +126,7 @@ class _EditTaskState extends State<EditTask> {
                     FirebaseFunctions.updateStatus( model).then((value) => Navigator.pop(context));
                     
                   },
-                 child: Text(
+                 child:const  Text(
                   'Save Changes',
                   style: TextStyle(
                     fontSize: 18,

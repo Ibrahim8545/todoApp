@@ -87,9 +87,9 @@ class LoginPage extends StatelessWidget {
                       FirebaseFunctions.login(
                           emailAddress: emailController.text,
                           password: passwordController.text,
-                          onSucess: () {
-                            pro.initUser();
-                            Navigator.pushNamedAndRemoveUntil(
+                          onSucess: () async{
+                            await pro.initUser();
+                           await Navigator.pushNamedAndRemoveUntil(
                               context,
                               HomeScreen.routeName,
                               (route) => false,
